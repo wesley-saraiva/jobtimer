@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "519860512820",
+    "project_id": "saraiva-job-timer",
+    "storage_bucket": "saraiva-job-timer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519860512820:android:0234a129be401d2588c261",
+        "android_client_info": {
+          "package_name": "br.com.saraiva.job_timer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519860512820-gcetme7r433tkkaj1khv93vkg2o84ulo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6k-lYLYKhJjzQuRQzDG0z546RWqOdLdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519860512820-gcetme7r433tkkaj1khv93vkg2o84ulo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

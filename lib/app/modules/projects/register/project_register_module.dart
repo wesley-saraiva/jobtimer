@@ -15,7 +15,7 @@ class ProjectRegisterModule extends Module {
         ChildRoute(
           '/',
           child: (context, args) => ProjectRegisterPage(
-            projectRegisterController: Modular.get(),
+            controller: Modular.get(),
           ),
         )
       ];

@@ -3,14 +3,14 @@
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:job_timer/app/core/ui/button_with_loader.dart';
 import 'package:job_timer/app/modules/projects/register/controller/project_register_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
 class ProjectRegisterPage extends StatefulWidget {
-  final ProjectRegisterController projectRegisterController;
+  final ProjectRegisterController controller;
 
-  const ProjectRegisterPage(
-      {super.key, required this.projectRegisterController});
+  const ProjectRegisterPage({super.key, required this.controller});
 
   @override
   State<ProjectRegisterPage> createState() => _ProjectRegisterPageState();
@@ -31,10 +31,11 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProjectRegisterController, ProjectRegisterStatus>(
-      bloc: widget.projectRegisterController,
+      bloc: widget.controller,
       listener: (context, state) {
         switch (state) {
           case ProjectRegisterStatus.sucess:
+            AsukaSnackbar.success('Projeto Cadastrado com sucesso').show();
             Navigator.pop(context);
             break;
           case ProjectRegisterStatus.failure:
@@ -84,24 +85,26 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                BlocSelector<ProjectRegisterController, ProjectRegisterStatus,
-                    bool>(
-                  bloc: widget.projectRegisterController,
-                  selector: (state) => state == ProjectRegisterStatus.loading,
-                  builder: (context, showLoading) {
-                    return Visibility(
-                      visible: showLoading,
-                      child: Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 12),
+                // BlocSelector<ProjectRegisterController, ProjectRegisterStatus,
+                //     bool>(
+                //   bloc: widget.controller,
+                //   selector: (state) => state == ProjectRegisterStatus.loading,
+                //   builder: (context, showLoading) {
+                //     return Visibility(
+                //       visible: showLoading,
+                //       child: Center(
+                //         child: CircularProgressIndicator.adaptive(),
+                //       ),
+                //     );
+                //   },
+                // ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 49,
-                  child: ElevatedButton(
+                  child: ButtonWithLoader<ProjectRegisterController,
+                      ProjectRegisterStatus>(
+                    bloc: widget.controller,
+                    selector: (state) => state == ProjectRegisterStatus.loading,
                     onPressed: () async {
                       final formValid =
                           _formKey.currentState?.validate() ?? false;
@@ -109,11 +112,10 @@ class _ProjectRegisterPageState extends State<ProjectRegisterPage> {
                         final name = _nameEC.text;
                         final estimate = int.parse(_estimateEC.text);
 
-                        await widget.projectRegisterController
-                            .register(name, estimate);
+                        await widget.controller.register(name, estimate);
                       }
                     },
-                    child: Text('Salvar'),
+                    label: 'Salvar',
                   ),
                 ),
               ],
